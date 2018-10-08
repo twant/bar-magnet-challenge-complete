@@ -96,15 +96,13 @@ define( function( require ) {
         posY = (Math.random() > 0.5) ? -1 : 1
 
         //model-view transform
-        console.log(posX)
-        console.log(`window ${window.innerWidth} layoutBounds ${view.layoutBounds.width}`)
         var center = new Vector2( view.layoutBounds.width / 2, view.layoutBounds.height / 2 );
         var modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( view.center, 1 );
         //create new magnet model (BarMagnet)
         var xLoc = Math.random()*window.innerWidth/2*posX - width*posX
         var yLoc = Math.random() * view.layoutBounds.height/2*posY - height/2*posY
-        console.log(`position(${xLoc}, ${yLoc})`)
         var newMagnet=new BarMagnet( new Dimension2( width, height ), new Vector2(xLoc, yLoc), 0 )
+        
         //create new magnet view (BarMagnetNode)
         var newMagnetNode = new BarMagnetNode( newMagnet, modelViewTransform )
         //add to children array of the ExampleScreenView object

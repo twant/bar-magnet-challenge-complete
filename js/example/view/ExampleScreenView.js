@@ -34,6 +34,7 @@ define( function( require ) {
     var center = new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 );
     var modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( center, 1 );
     this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) )
+    
     //added the view parameter to ControlPanel (in the ControlPanel.js file) and here am passing in the ScreenView object as an argument (this)
     this.addChild( new ControlPanel( this, model, {
       x: 50,
