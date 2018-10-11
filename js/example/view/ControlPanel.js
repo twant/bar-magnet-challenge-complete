@@ -31,7 +31,7 @@ define( function( require ) {
    * @param {Object} [options] - scenery options for rendering the control panel, see the constructor for options
    * @constructor
    */
-  function ControlPanel(model, options) {
+  function ControlPanel( model, options ) {
     // Demonstrate a common pattern for specifying options and providing default values
     options = _.extend( {
         xMargin: 10,
@@ -57,7 +57,7 @@ define( function( require ) {
       baseColor: 'yellow',
       xMargin: 10,
       listener: function() {
-        model.moveBarMagnet();
+        model.moveBarMagnet(model.barMagnet);
       }
     } );
 

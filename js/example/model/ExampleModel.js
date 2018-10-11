@@ -27,8 +27,8 @@ define( function( require ) {
 
     // @public {BarMagnet} initial bar magnet model element
     this.barMagnet = new BarMagnet( new Dimension2( 262.5, 52.5 ), new Vector2( 0, 0 ), 0 );
-    // @public {ObservableArray} aarray to hold added bar magnets model elements
-    this.barMagnets= new ObservableArray()
+    // @public {ObservableArray} array to hold added bar magnets model elements
+    this.barMagnets = new ObservableArray();
   }
 
   exampleSim.register( 'ExampleModel', ExampleModel );
@@ -37,10 +37,10 @@ define( function( require ) {
 
     /**
     * Moves a given magnet to a random position on the screen. This method is called
-     when the "move bar magnet" and "add bar magnet" buttons are pressed. Default argument is the original bar magnet element.
+     when the "move bar magnet" and "add bar magnet" buttons are pressed.
     * @public
     */
-    moveBarMagnet: function( magnet=this.barMagnet ){
+    moveBarMagnet: function( magnet ){
       //generates random x and y locations.
       var locX = ( Math.random() * window.innerWidth/2 - magnet.size.width/2 ) * ( Math.random() < 0.5 ? -1 : 1 );
       var locY = ( Math.random() * window.innerHeight/2 - magnet.size.height ) * ( Math.random() < 0.5 ? -1 : 1 );
@@ -54,7 +54,7 @@ define( function( require ) {
     */
     addBarMagnet: function() {
       //create a new bar magnet element
-      var newBarMagnet = new BarMagnet( new Dimension2( 262.5, 52.5 ), new Vector2( 0,0 ), 0 );
+      var newBarMagnet = new BarMagnet( new Dimension2( 262.5, 52.5 ), new Vector2( 0, 0 ), 0 );
       //move the new bar magnet element to a random location
       this.moveBarMagnet( newBarMagnet );
       //add the bar magnet ot the barMagnets array
