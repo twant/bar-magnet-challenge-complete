@@ -8,8 +8,8 @@
   "moveBarMagnet" : {
     "value" : "Move Bar Magnet"
   },
-  "newBarMagnet" : {
-    "value" : "New Bar Magnet"
+  "addBarMagnet" : {
+    "value" : "Add Bar Magnet"
   }
 
 }
