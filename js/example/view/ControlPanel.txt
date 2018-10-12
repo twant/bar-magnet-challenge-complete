@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * Panel of controls at the top left of the sim. It contains controls for flipping the magnet and the reset all button.
@@ -19,6 +19,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var BarMagnet = require( 'EXAMPLE_SIM/example/model/BarMagnet' );
 
   // strings
   var flipPolarityString = require( 'string!EXAMPLE_SIM/flipPolarity' );
@@ -60,7 +61,6 @@ define( function( require ) {
       }
     } );
 
-    // 'Add Bar Magnet' button, adds an additional bar magnet to the model with a random location
     var addButton = new TextPushButton( addBarMagnetString, {
       font: new PhetFont( 16 ),
       baseColor: 'yellow',

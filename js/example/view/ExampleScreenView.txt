@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * View for the 'Example' screen.
@@ -40,24 +40,25 @@ define( function( require ) {
     var center = new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 );
     var modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( center, 1 );
 
+    //initial bar magnet
     this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) );
+    //control panel
     this.addChild( new ControlPanel( model, {
       x: 50,
       y: 50
     } ) );
 
-    // add or remove a node when the model's barMagnets array is modified
+    //add or remove a node when the model's barMagnets array is modified
     model.barMagnets.addItemAddedListener( addedMagnet => {
       // add a node for the new magnet
       const barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform );
       this.addChild( barMagnetNode );
 
       // add a listener to remove the node when that magent is removed from the model
-      model.barMagnets.addItemRemovedListener( function removalListener( removedMagnet ) {
+      model.barMagnets.addItemRemovedListener( removedMagnet  => {
         if ( removedMagnet === addedMagnet ) {
           self.removeChild( barMagnetNode );
           barMagnetNode.dispose();
-          model.barMagnets.removeItemRemovedListener( removalListener );
         }
       } );
     } );
@@ -65,5 +66,5 @@ define( function( require ) {
 
   exampleSim.register( 'ExampleScreenView', ExampleScreenView );
 
-  return inherit( ScreenView, ExampleScreenView );
+  return inherit( ScreenView, ExampleScreenView);
 } );

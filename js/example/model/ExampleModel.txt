@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * Model for the 'Example' screen.
@@ -25,10 +25,9 @@ define( function( require ) {
    */
   function ExampleModel() {
 
-    // @public {BarMagnet} - initial bar magnet model element
+    // @public {BarMagnet} initial bar magnet model element
     this.barMagnet = new BarMagnet( new Dimension2( 262.5, 52.5 ), new Vector2( 0, 0 ), 0 );
-
-    // @public {ObservableArray} - array to hold added bar magnets model elements
+    // @public {ObservableArray} array to hold added bar magnets model elements
     this.barMagnets = new ObservableArray();
   }
 
@@ -42,12 +41,11 @@ define( function( require ) {
     * @public
     */
     moveBarMagnet: function( magnet ){
-      // generates random x and y locations.
-      var locationX = ( phet.joist.random.nextDouble() * window.innerWidth / 2 - magnet.size.width / 2 ) * ( phet.joist.random.nextBoolean() ? -1 : 1 );
-      var locationY = ( phet.joist.random.nextDouble() * window.innerHeight / 2 - magnet.size.height ) * ( phet.joist.random.nextBoolean() ? -1 : 1 );
-
-      // sets the magnet's location to the new random values
-      magnet.locationProperty.set( {x: locationX, y: locationY} );
+      //generates random x and y locations.
+      var locX = ( Math.random() * window.innerWidth/2 - magnet.size.width/2 ) * ( Math.random() < 0.5 ? -1 : 1 );
+      var locY = ( Math.random() * window.innerHeight/2 - magnet.size.height ) * ( Math.random() < 0.5 ? -1 : 1 );
+      //sets the magnet's location to the new random values
+      magnet.locationProperty.set( {x: locX, y: locY} );
     },
 
     /**
@@ -55,11 +53,11 @@ define( function( require ) {
     * @public
     */
     addBarMagnet: function() {
-      // create a new bar magnet element and moves to a random location
+      //create a new bar magnet element
       var newBarMagnet = new BarMagnet( new Dimension2( 262.5, 52.5 ), new Vector2( 0, 0 ), 0 );
+      //move the new bar magnet element to a random location
       this.moveBarMagnet( newBarMagnet );
-
-      // add the bar magnet ot the barMagnets array
+      //add the bar magnet ot the barMagnets array
       this.barMagnets.push( newBarMagnet );
     },
 
