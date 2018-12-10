@@ -36,7 +36,13 @@ define( function( require ) {
         xMargin: 10,
         yMargin: 10,
         stroke: 'orange',
-        lineWidth: 3
+        lineWidth: 3,
+        tagName: 'div',
+        labelTagName: 'h1',
+        labelContent: 'Control Panel',
+        descriptionTagName: 'p',
+        descriptionContent: 'This is the control panel.',
+        containerTagName: 'div'
       }, options );
 
     // 'Flip Polarity' button

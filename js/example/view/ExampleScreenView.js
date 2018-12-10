@@ -17,6 +17,7 @@ define( function( require ) {
   var ControlPanel = require( 'EXAMPLE_SIM/example/view/ControlPanel' );
   var exampleSim = require( 'EXAMPLE_SIM/exampleSim' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -41,6 +42,13 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( center, 1 );
 
     this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) );
+    this.addChild( new Node( {
+      tagName: 'div',
+      labelTagName: 'h1',
+      labelContent: 'Play Area',
+      descriptionTagName: 'p',
+      descriptionContent: 'This is the play area.'
+    } ) );
     this.addChild( new ControlPanel( model, {
       x: 50,
       y: 50
