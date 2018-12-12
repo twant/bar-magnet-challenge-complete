@@ -38,7 +38,7 @@ define( function( require ) {
         stroke: 'orange',
         lineWidth: 3,
         tagName: 'div',
-        labelTagName: 'h1',
+        labelTagName: 'h2',
         labelContent: 'Control Panel',
         descriptionTagName: 'p',
         descriptionContent: 'This is the control panel.',

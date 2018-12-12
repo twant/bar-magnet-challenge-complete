@@ -41,14 +41,20 @@ define( function( require ) {
     var center = new Vector2( this.layoutBounds.width / 2, this.layoutBounds.height / 2 );
     var modelViewTransform = ModelViewTransform2.createOffsetScaleMapping( center, 1 );
 
-    this.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform ) );
-    this.addChild( new Node( {
+    //create node for the play area accessability features.
+    var playAreaNode = new Node( {
       tagName: 'div',
-      labelTagName: 'h1',
+      labelTagName: 'h2',
       labelContent: 'Play Area',
       descriptionTagName: 'p',
       descriptionContent: 'This is the play area.'
-    } ) );
+    } )
+
+    //add bar magnets to the play area
+    playAreaNode.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } ) );
+
+    //add play area to the screen
+    this.addChild( playAreaNode );
     this.addChild( new ControlPanel( model, {
       x: 50,
       y: 50
@@ -57,13 +63,13 @@ define( function( require ) {
     // add or remove a node when the model's barMagnets array is modified
     model.barMagnets.addItemAddedListener( addedMagnet => {
       // add a node for the new magnet
-      const barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform );
-      this.addChild( barMagnetNode );
+      const barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } );
+      playAreaNode.addChild( barMagnetNode );
 
       // add a listener to remove the node when that magent is removed from the model
       model.barMagnets.addItemRemovedListener( function removalListener( removedMagnet ) {
         if ( removedMagnet === addedMagnet ) {
-          self.removeChild( barMagnetNode );
+          playAreaNode.removeChild( barMagnetNode );
           barMagnetNode.dispose();
           model.barMagnets.removeItemRemovedListener( removalListener );
         }

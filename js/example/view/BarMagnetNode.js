@@ -16,6 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener')
 
   // images
   var barMagnetImage = require( 'image!EXAMPLE_SIM/barMagnet.png' );
@@ -27,16 +28,19 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
    * @constructor
    */
-  function BarMagnetNode( barMagnet, modelViewTransform ) {
+  function BarMagnetNode( barMagnet, modelViewTransform, options ) {
 
     var self = this;
-
-    // Call the super constructor
-    Node.call( this, {
-
+    options = _.extend( {
       // Show a cursor hand over the bar magnet
-      cursor: 'pointer'
-    } );
+      cursor: 'pointer',
+      tagName: 'div',
+      labelTagName: 'h3',
+      ariaRole: 'application',
+      focusable: true
+      }, options );
+    // Call the super constructor
+    Node.call( this, options);
 
     // Add the centered bar magnet image
     this.addChild( new Image( barMagnetImage, {
@@ -59,6 +63,16 @@ define( function( require ) {
       translate: function( args ) {
         barMagnet.locationProperty.set( modelViewTransform.viewToModelPosition( args.position ) );
       }
+    } ) );
+
+    // When dragging, move the bar magnet
+    this.addInputListener( new KeyboardDragListener( {
+
+      // Translate on drag events
+      locationProperty: barMagnet.locationProperty,
+      transform: modelViewTransform,
+      downDelta: 5,
+      shiftDownDelta: 2.5
     } ) );
 
     // Observe changes in model location and update the view. This element always exists and does not need to be
