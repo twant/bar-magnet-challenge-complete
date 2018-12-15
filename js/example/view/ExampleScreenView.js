@@ -52,7 +52,7 @@ define( function( require ) {
     } )
 
     //add bar magnets to the play area
-    playAreaNode.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } ) );
+    playAreaNode.addChild( new BarMagnetNode( model.barMagnet, modelViewTransform, this.layoutBounds, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } ) );
 
     //add play area to the screen
     this.addChild( playAreaNode );

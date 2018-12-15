@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform - the coordinate transform between model coordinates and view coordinates
    * @constructor
    */
-  function BarMagnetNode( barMagnet, modelViewTransform, options ) {
+  function BarMagnetNode( barMagnet, modelViewTransform, screenViewBounds, options ) {
 
     var self = this;
     options = _.extend( {
@@ -70,19 +70,23 @@ define( function( require ) {
     // When dragging, move the bar magnet
     this.addInputListener( new KeyboardDragListener( {
 
-      // Translate on drag events
       locationProperty: barMagnet.locationProperty,
       transform: modelViewTransform,
       downDelta: 5,
       shiftDownDelta: 2.5,
+
+      //alert the user if the magnet gets dragged offscreen
       drag: function(){
-        //if (barMagnet.locationProperty.x < leftBound || barMagnet.locationProperty.x > rightBound || barMagnet.locationProperty.y > topBound || barMagnet.locationProperty.y < bottomBound){
+        if (barMagnet.locationProperty.get().x > screenViewBounds.maxX/2 || barMagnet.locationProperty.get().x < screenViewBounds.maxX/2*-1 || barMagnet.locationProperty.get().y < screenViewBounds.maxY/2*-1 || barMagnet.locationProperty.get().y > screenViewBounds.maxY/2){
           utteranceQueue.addToBack( new Utterance( {
             alert: 'magnet dragged offscreen',
             uniqueGroupId: 'boundaryAlert'
           } ) );
-        //}
+        }
       }
+
+      //need to add a listener to alert the user when the magnet is back on the screen.
+      
     } ) );
 
     // Observe changes in model location and update the view. This element always exists and does not need to be
@@ -98,7 +102,10 @@ define( function( require ) {
     } );
   }
 
+
+
   exampleSim.register( 'BarMagnetNode', BarMagnetNode );
 
-  return inherit( Node, BarMagnetNode );
+  return inherit( Node, BarMagnetNode);
+
 } );

@@ -55,6 +55,10 @@ define( function( require ) {
       listener: function() {
         var orientation = model.barMagnet.orientationProperty.get() + Math.PI;
         model.barMagnet.orientationProperty.set( orientation );
+        utteranceQueue.addToBack( new Utterance( {
+          alert: 'polarity flipped',
+          uniqueGroupId: 'buttonAlert'
+        } ) );
       }
     } );
 
@@ -90,6 +94,10 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        utteranceQueue.addToBack( new Utterance( {
+          alert: 'reset button pressed',
+          uniqueGroupId: 'buttonAlert'
+        } ) );
       }
     } );
 
