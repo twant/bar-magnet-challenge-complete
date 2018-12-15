@@ -17,6 +17,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener')
+  var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // images
   var barMagnetImage = require( 'image!EXAMPLE_SIM/barMagnet.png' );
@@ -72,7 +74,15 @@ define( function( require ) {
       locationProperty: barMagnet.locationProperty,
       transform: modelViewTransform,
       downDelta: 5,
-      shiftDownDelta: 2.5
+      shiftDownDelta: 2.5,
+      drag: function(){
+        //if (barMagnet.locationProperty.x < leftBound || barMagnet.locationProperty.x > rightBound || barMagnet.locationProperty.y > topBound || barMagnet.locationProperty.y < bottomBound){
+          utteranceQueue.addToBack( new Utterance( {
+            alert: 'magnet dragged offscreen',
+            uniqueGroupId: 'boundaryAlert'
+          } ) );
+        //}
+      }
     } ) );
 
     // Observe changes in model location and update the view. This element always exists and does not need to be

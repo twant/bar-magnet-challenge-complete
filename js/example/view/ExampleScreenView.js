@@ -21,6 +21,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Vector2 = require( 'DOT/Vector2' );
+  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener')
 
   /**
    * Constructor for the ExampleScreenView, it creates the bar magnet node and control panel node.
@@ -63,7 +64,22 @@ define( function( require ) {
     // add or remove a node when the model's barMagnets array is modified
     model.barMagnets.addItemAddedListener( addedMagnet => {
       // add a node for the new magnet
-      const barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } );
+      let barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } );
+      // When dragging, move the bar magnet
+      barMagnetNode.addInputListener( new KeyboardDragListener( {
+        // Translate on drag events
+        locationProperty: addedMagnet,
+        transform: modelViewTransform,
+        downDelta: 5,
+        shiftDownDelta: 2.5,
+        drag: function(){
+          // utteranceQueue.addToBack( new Utterance( {
+          //   alert: 'magnet dragged offscreen',
+          //   uniqueGroupId: 'boundaryAlert'
+          // } ) );
+          console.log("magnet dragged via keyboard")
+        }
+      } ) );
       playAreaNode.addChild( barMagnetNode );
 
       // add a listener to remove the node when that magent is removed from the model
