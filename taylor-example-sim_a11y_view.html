@@ -33,11 +33,23 @@
     div#content div.left{
       display: grid;
       grid-template-rows: 1fr 5fr 5fr;
+      margin-right:2%;
+    }
+    h1{
+      font-size: 1.8em;
+      margin-top:0;
+    }
+
+    h1#main-title{
+      margin-left:2%;
     }
 
     @media(max-width: 974px){
       div#content div.left{
         grid-template-rows: 1fr 2fr 5fr;
+      }
+      h1{
+        font-size: 1.4em;
       }
     }
 
@@ -49,21 +61,12 @@
       -webkit-padding-start: 20px
     }
 
-
-    /* This class was found online as a way to preserve an iframe aspect ratio,
-    see https://fettblog.eu/blog/2013/06/16/preserving-aspect-ratio-for-embedded-iframes/*/
-    .aspect-ratio {
-      /* position: relative; */
-      width: 100%;
-      height: 100%;
-      padding-bottom: 67%;
-    }
-
     iframe {
       width: 43%;
       height: 30vw;
       max-height: 30vw;
-      position: absolute;
+      position: fixed;
+      bottom: 10px;
     }
 
 
@@ -76,6 +79,9 @@
       border-radius: 1em;
       padding: .25em .75em 1em;
       min-height: 7em;
+    }
+    div#alerts{
+      margin-top:20px;
     }
 
     p.alert_copy {
@@ -125,21 +131,9 @@
 
   <div id="content">
     <div class="left">
-      <h1>A11y View: Example Simulation</h1>
+      <h1 id="main-title">A11y View: Example Simulation</h1>
       <div class="aspect-ratio">
         <iframe id="iframe" allowfullscreen scrolling="no" title="Interact with Example Simulation"></iframe>
-      </div>
-      <div id="alerts">
-        <h3>Activity log of Interactive Alerts</h3>
-        <p>
-          Interactive alerts are read out as the user interacts providing a description of what is happening in
-          real-time. Alerts appear in reverse chronological order with the latest on top.
-        </p>
-        <div id=alert-copy-container class=alert_copy_container>
-          <div id='polite-element-container'>
-            <ul class='alert_copy' id='alert-list'></ul>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -166,8 +160,19 @@
       <p>Content in the blue box updates in real-time to provide an always-available description of the current state of
         the sim.</p>
       <div id="dom-copy-container" class="dom_copy_container" role="presentation"></div>
+      <div id="alerts">
+        <h3>Activity log of Interactive Alerts</h3>
+        <p>
+          Interactive alerts are read out as the user interacts providing a description of what is happening in
+          real-time. Alerts appear in reverse chronological order with the latest on top.
+        </p>
+        <div id=alert-copy-container class=alert_copy_container>
+          <div id='polite-element-container'>
+            <ul class='alert_copy' id='alert-list'></ul>
+          </div>
+        </div>
+      </div>
     </div>
-
     <!--clear the blocks after the float effect-->
     <div class="clearfix"></div>
   </div>

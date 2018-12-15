@@ -19,6 +19,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // strings
   var flipPolarityString = require( 'string!EXAMPLE_SIM/flipPolarity' );
@@ -63,6 +65,10 @@ define( function( require ) {
       xMargin: 10,
       listener: function() {
         model.moveBarMagnet(model.barMagnet);
+        utteranceQueue.addToBack( new Utterance( {
+          alert: 'magnet 1 moved to random location',
+          uniqueGroupId: 'buttonAlert'
+        } ) );
       }
     } );
 
@@ -73,6 +79,10 @@ define( function( require ) {
       xMargin: 10,
       listener: function() {
         model.addBarMagnet();
+        utteranceQueue.addToBack( new Utterance( {
+          alert: `added a new magnet. there are now ${model.barMagnets.length+1} magnets on the screen`,
+          uniqueGroupId: 'buttonAlert'
+        } ) );
       }
     } );
 

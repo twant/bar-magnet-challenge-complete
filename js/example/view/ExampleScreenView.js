@@ -65,21 +65,6 @@ define( function( require ) {
     model.barMagnets.addItemAddedListener( addedMagnet => {
       // add a node for the new magnet
       let barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } );
-      // When dragging, move the bar magnet
-      barMagnetNode.addInputListener( new KeyboardDragListener( {
-        // Translate on drag events
-        locationProperty: addedMagnet,
-        transform: modelViewTransform,
-        downDelta: 5,
-        shiftDownDelta: 2.5,
-        drag: function(){
-          // utteranceQueue.addToBack( new Utterance( {
-          //   alert: 'magnet dragged offscreen',
-          //   uniqueGroupId: 'boundaryAlert'
-          // } ) );
-          console.log("magnet dragged via keyboard")
-        }
-      } ) );
       playAreaNode.addChild( barMagnetNode );
 
       // add a listener to remove the node when that magent is removed from the model
