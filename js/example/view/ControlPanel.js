@@ -57,7 +57,7 @@ define( function( require ) {
         model.barMagnet.orientationProperty.set( orientation );
         utteranceQueue.addToBack( new Utterance( {
           alert: 'polarity flipped',
-          uniqueGroupId: 'buttonAlert'
+          uniqueGroupId: 'flipPolarityButtonAlert'
         } ) );
       }
     } );
@@ -71,7 +71,7 @@ define( function( require ) {
         model.moveBarMagnet(model.barMagnet);
         utteranceQueue.addToBack( new Utterance( {
           alert: 'magnet 1 moved to random location',
-          uniqueGroupId: 'buttonAlert'
+          uniqueGroupId: 'moveMagnetButtonAlert'
         } ) );
       }
     } );
@@ -85,7 +85,7 @@ define( function( require ) {
         model.addBarMagnet();
         utteranceQueue.addToBack( new Utterance( {
           alert: `added a new magnet. there are now ${model.barMagnets.length+1} magnets on the screen`,
-          uniqueGroupId: 'buttonAlert'
+          uniqueGroupId: 'addMagnetButtonAlert'
         } ) );
       }
     } );
@@ -94,10 +94,6 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        utteranceQueue.addToBack( new Utterance( {
-          alert: 'reset button pressed',
-          uniqueGroupId: 'buttonAlert'
-        } ) );
       }
     } );
 

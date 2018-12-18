@@ -64,8 +64,7 @@ define( function( require ) {
     // add or remove a node when the model's barMagnets array is modified
     model.barMagnets.addItemAddedListener( addedMagnet => {
       // add a node for the new magnet
-      let barMagnetNode = new BarMagnetNode( addedMagnet, modelViewTransform, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } );
-      playAreaNode.addChild( barMagnetNode );
+      playAreaNode.addChild( new BarMagnetNode( addedMagnet, modelViewTransform, this.layoutBounds, { labelContent: `Bar Magnet ${ model.barMagnets.length+1 }` } ) );
 
       // add a listener to remove the node when that magent is removed from the model
       model.barMagnets.addItemRemovedListener( function removalListener( removedMagnet ) {

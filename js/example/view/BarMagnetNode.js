@@ -38,6 +38,8 @@ define( function( require ) {
       cursor: 'pointer',
       tagName: 'div',
       labelTagName: 'h3',
+      descriptionTagName: 'p',
+      descriptionContent: 'This is a bar magnet',
       ariaRole: 'application',
       focusable: true
       }, options );
@@ -77,16 +79,56 @@ define( function( require ) {
 
       //alert the user if the magnet gets dragged offscreen
       drag: function(){
-        if (barMagnet.locationProperty.get().x > screenViewBounds.maxX/2 || barMagnet.locationProperty.get().x < screenViewBounds.maxX/2*-1 || barMagnet.locationProperty.get().y < screenViewBounds.maxY/2*-1 || barMagnet.locationProperty.get().y > screenViewBounds.maxY/2){
-          utteranceQueue.addToBack( new Utterance( {
-            alert: 'magnet dragged offscreen',
-            uniqueGroupId: 'boundaryAlert'
-          } ) );
+        let alertText
+        if ( barMagnet.locationProperty.get().x > screenViewBounds.maxX/2 ) {
+          alertText = 'magnet offscreen. move left';
         }
+        if ( barMagnet.locationProperty.get().x < screenViewBounds.maxX/2*-1 ){
+          alertText = 'magnet offscreen. move right';
+        }
+        if ( barMagnet.locationProperty.get().y < screenViewBounds.maxY/2*-1 ){
+          alertText = 'magnet offscreen. move down.';
+        }
+        if ( barMagnet.locationProperty.get().y > screenViewBounds.maxY/2  ){
+          alertText = 'magnet dragged offscreen. move up';
+        }
+        
+        alertText && utteranceQueue.addToBack( new Utterance( {
+            alert: alertText,
+            uniqueGroupId: 'boundaryAlert'
+        } ) );
+      },
+
+      end: function( event ){
+        const endLocationX = barMagnet.locationProperty.get().x + screenViewBounds.maxX/2
+        const endLocationY = barMagnet.locationProperty.get().y + screenViewBounds.maxY/2
+        console.log(`screenViewBounds: ${screenViewBounds.maxX}, ${screenViewBounds.maxY}`)
+        console.log(`endLocation: ${endLocationX}, ${endLocationY}`)
+        let vertArea
+        let horizArea
+        if ( 2*screenViewBounds.maxY/3 < endLocationY && endLocationY < screenViewBounds.maxY ){
+          vertArea = 'bottom'
+        } else if ( 0 < endLocationY && endLocationY < screenViewBounds.maxY/3 ){
+          vertArea = 'top'
+        } else {
+          vertArea = 'center'
+        }
+
+        if (2*screenViewBounds.maxX/3 < endLocationX && endLocationX < screenViewBounds.maxX ){
+          horizArea = 'right'
+        } else if (0 < endLocationX && endLocationX < screenViewBounds.maxX/3 ){
+          horizArea = 'left'
+        } else {
+          horizArea = 'center'
+        }
+
+        if (endLocationX )
+        utteranceQueue.addToBack( new Utterance( {
+            alert: `The magnet is in the ${( vertArea == "center" && horizArea == "center" ) ? '' : vertArea} ${horizArea} of the play area`,
+            uniqueGroupId: 'newPositionAlert'
+        } ) );
       }
 
-      //need to add a listener to alert the user when the magnet is back on the screen.
-      
     } ) );
 
     // Observe changes in model location and update the view. This element always exists and does not need to be
