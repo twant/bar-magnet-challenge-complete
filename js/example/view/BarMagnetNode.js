@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener')
+  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
@@ -42,9 +42,9 @@ define( function( require ) {
       descriptionContent: 'This is a bar magnet',
       ariaRole: 'application',
       focusable: true
-      }, options );
+    }, options );
     // Call the super constructor
-    Node.call( this, options);
+    Node.call( this, options );
 
     // Add the centered bar magnet image
     this.addChild( new Image( barMagnetImage, {
@@ -78,55 +78,62 @@ define( function( require ) {
       shiftDownDelta: 2.5,
 
       //alert the user if the magnet gets dragged offscreen
-      drag: function(){
-        let alertText
-        if ( barMagnet.locationProperty.get().x > screenViewBounds.maxX/2 ) {
+      drag: function() {
+        let alertText;
+        if ( barMagnet.locationProperty.get().x > screenViewBounds.maxX / 2 ) {
           alertText = 'magnet offscreen. move left';
         }
-        if ( barMagnet.locationProperty.get().x < screenViewBounds.maxX/2*-1 ){
+        if ( barMagnet.locationProperty.get().x < screenViewBounds.maxX / 2 * -1 ) {
           alertText = 'magnet offscreen. move right';
         }
-        if ( barMagnet.locationProperty.get().y < screenViewBounds.maxY/2*-1 ){
+        if ( barMagnet.locationProperty.get().y < screenViewBounds.maxY / 2 * -1 ) {
           alertText = 'magnet offscreen. move down.';
         }
-        if ( barMagnet.locationProperty.get().y > screenViewBounds.maxY/2  ){
+        if ( barMagnet.locationProperty.get().y > screenViewBounds.maxY / 2 ) {
           alertText = 'magnet dragged offscreen. move up';
         }
-        
+
         alertText && utteranceQueue.addToBack( new Utterance( {
-            alert: alertText,
-            uniqueGroupId: 'boundaryAlert'
+          alert: alertText,
+          uniqueGroupId: 'boundaryAlert'
         } ) );
       },
 
-      end: function( event ){
-        const endLocationX = barMagnet.locationProperty.get().x + screenViewBounds.maxX/2
-        const endLocationY = barMagnet.locationProperty.get().y + screenViewBounds.maxY/2
-        console.log(`screenViewBounds: ${screenViewBounds.maxX}, ${screenViewBounds.maxY}`)
-        console.log(`endLocation: ${endLocationX}, ${endLocationY}`)
-        let vertArea
-        let horizArea
-        if ( 2*screenViewBounds.maxY/3 < endLocationY && endLocationY < screenViewBounds.maxY ){
-          vertArea = 'bottom'
-        } else if ( 0 < endLocationY && endLocationY < screenViewBounds.maxY/3 ){
-          vertArea = 'top'
-        } else {
-          vertArea = 'center'
+      end: function( event ) {
+        const endLocationX = barMagnet.locationProperty.get().x + screenViewBounds.maxX / 2;
+        const endLocationY = barMagnet.locationProperty.get().y + screenViewBounds.maxY / 2;
+        console.log( `screenViewBounds: ${screenViewBounds.maxX}, ${screenViewBounds.maxY}` );
+        console.log( `endLocation: ${endLocationX}, ${endLocationY}` );
+        let vertArea;
+        let horizArea;
+        if ( 2 * screenViewBounds.maxY / 3 < endLocationY && endLocationY < screenViewBounds.maxY ) {
+          vertArea = 'bottom';
+        }
+        else if ( 0 < endLocationY && endLocationY < screenViewBounds.maxY / 3 ) {
+          vertArea = 'top';
+        }
+        else {
+          vertArea = 'center';
         }
 
-        if (2*screenViewBounds.maxX/3 < endLocationX && endLocationX < screenViewBounds.maxX ){
-          horizArea = 'right'
-        } else if (0 < endLocationX && endLocationX < screenViewBounds.maxX/3 ){
-          horizArea = 'left'
-        } else {
-          horizArea = 'center'
+        if ( 2 * screenViewBounds.maxX / 3 < endLocationX && endLocationX < screenViewBounds.maxX ) {
+          horizArea = 'right';
+        }
+        else if ( 0 < endLocationX && endLocationX < screenViewBounds.maxX / 3 ) {
+          horizArea = 'left';
+        }
+        else {
+          horizArea = 'center';
         }
 
-        if (endLocationX )
-        utteranceQueue.addToBack( new Utterance( {
-            alert: `The magnet is in the ${( vertArea == "center" && horizArea == "center" ) ? '' : vertArea} ${horizArea} of the play area`,
+        if ( endLocationX ) {
+          utteranceQueue.addToBack( new Utterance( {
+            alert: `The magnet is in the ${( vertArea === 'center' && horizArea === 'center' ) ?
+                                           '' :
+                                           vertArea} ${horizArea} of the play area`,
             uniqueGroupId: 'newPositionAlert'
-        } ) );
+          } ) );
+        }
       }
 
     } ) );
@@ -145,9 +152,8 @@ define( function( require ) {
   }
 
 
-
   exampleSim.register( 'BarMagnetNode', BarMagnetNode );
 
-  return inherit( Node, BarMagnetNode);
+  return inherit( Node, BarMagnetNode );
 
 } );
